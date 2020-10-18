@@ -112,27 +112,96 @@ struct TopicsView: View {
         
             NavigationLink(destination: HomeView()) {
                 VStack(alignment: .leading) {
-                                                    
+                                 
+                    VStack {
                     Text("Follow your")
                         .fontWeight(.black)
                         .font(.system(size: 40))
-                        .foregroundColor(.black)
+                        .foregroundColor(.black).padding(.leading, -35)
                     
                     Text("favorite topics!")
                         .fontWeight(.black)
                         .font(.system(size: 40))
-                        .foregroundColor(twitterBlueStandard)
+                        .foregroundColor(twitterBlueStandard).padding(.leading, 40)
+                    }
                                                     
                 VStack(alignment: .leading) {
                     HStack {
                         Spacer()
-                        RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 90)
-                        RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 90)
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Pets").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Weather").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
                         Spacer()
-                    }.padding(.vertical, 20)
+                    }.padding(.top, 20).padding(.leading, -30)
                     
                     
-                }
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 150, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Astronomy").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Education").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        Spacer()
+                    }.padding(.top, 25).padding(.leading, 70)
+                    
+                    
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Food").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Family").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        Spacer()
+                    }.padding(.top, 25).padding(.leading, -30)
+                    
+                    
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 150, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Books").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 20).frame(width: 170, height: 65).foregroundColor(twitterBlueStandard)
+                            HStack {
+                                Text("Photography").font(.title2).bold().foregroundColor(.white)
+                            }
+                        }
+                        Spacer()
+                    }.padding(.top, 25).padding(.leading, 70)
+                }.padding(.top, 50)
                 
                 Spacer(minLength: 30)
                 
@@ -174,7 +243,10 @@ struct HomeView: View {
 }
 
 struct TodayView: View {
+    @Environment(\.openURL) var openURL
+    
     var body: some View {
+        
         VStack(alignment: .leading) {
             HStack {
                 Spacer()
@@ -188,10 +260,27 @@ struct TodayView: View {
                     .padding()
                 Spacer()
             }
-            TweetView()
-            
+            TweetView(tweetText: "Starting off #UltraHacks and we’ve already gone through so many bird names 🐦").padding(.bottom, 18)
+            TweetView(screenName: "Rheana de la cruz", tweetText: "Taking a break from hacking, for some much needed fun! Y’all are the best💯🤣 #UltraHacks", imageName: "IMG_A2216BD6D255-1").padding(.bottom, 18)
+            TweetView(screenName: "Brian Raymond Junior", tweetText: "Scored an Apple interview! #SoExcited 😁😁😁", imageName: "IMG_0375").padding(.bottom, 14)
+
+            HStack {
+                Spacer()
+                Button(action: viewHappyTweets) {
+                    Text("Read more Happy Tweets!").customButton()
+                    
+                }
+                Spacer()
+            }.padding(.top, 30)
             Spacer()
         }.padding(.top, -60)
+    }
+    
+    func viewHappyTweets() {
+        guard let url = URL(string: "twitter://search?query=%23HappyTweets") else {
+            return
+        }
+        openURL(url)
     }
 }
 
@@ -280,6 +369,7 @@ struct ProfileView: View {
         
         
     }
+    
 }
 
 struct HappyView: View {
